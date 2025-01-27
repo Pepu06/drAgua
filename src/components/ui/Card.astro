@@ -3,30 +3,17 @@ const { imgSrc, headingText } = Astro.props;
 ---
 
 <div
-  style="
-display: flex;
-width: 250px;
-padding: 15px 0px 34px 0px;
-flex-direction: column;
-align-items: center;
-gap: 15px;
-border-radius: 5px;
-border-top: 1px solid rgba(19, 37, 79, 0.50);
-border-right: 1px solid rgba(19, 37, 79, 0.50);
-border-left: 1px solid rgba(19, 37, 79, 0.50);
-background: rgba(5, 17, 46, 0.50);"
+  class="flex flex-col items-center gap-4 p-3 pb-6 rounded-lg border-t border-r border-l border-[rgba(19,37,79,0.50)] bg-[rgba(5,17,46,0.50)]"
+  style="width: 200px;
+  height: 250px;"
 >
-  <img style="
-    width: 300px;
-height: 200px;" src={imgSrc} alt="" />
+  <img 
+    class="w-full h-[160px] object-cover rounded-lg" 
+    src={imgSrc} 
+    alt="" 
+  />
   <h2
-    style="
-        color: var(--Paragraph-Color, #93A0BC);
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-letter-spacing: 3.2px;"
+    class="text-[#93A0BC] text-sm font-medium tracking-[3.2px] text-center"
   >
     {headingText}
   </h2>
