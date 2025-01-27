@@ -1,0 +1,45 @@
+---
+import Logo from "@assets/logo.png";
+import Search from "@components/ui/Search.astro";
+---
+
+<header
+  class="bg-bgDrAgua flex justify-between items-center fixed top-0 w-full z-50"
+  style="border-bottom: 1px solid var(--Border-Color, #13254F);"
+>
+  <div
+    class="flex items-center justify-center p-[20px] gap-x-2 text-white w-52"
+  >
+    <img height="50" width="50" src={Logo.src} alt="Logo" />
+    <h1 class="font-lato text-2xl font-bold">Dr. Agua</h1>
+  </div>
+  <div>
+    <nav class="flex items-center justify-center gap-x-16 text-white">
+      <a
+        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        href="/">Inicio</a
+      >
+      <a
+        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        href="#">Productos</a
+      >
+      <a
+        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        href="#">Aplicaciones</a
+      >
+      <a
+        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        href="#">Marcas</a
+      >
+      <a
+        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        href="/contacto">Contacto</a
+      >
+    </nav>
+  </div>
+  <div class="flex items-center justify-end w-52">
+    <button class="bg-[#145EFF] p-8">
+      <Search />
+    </button>
+  </div>
+</header>

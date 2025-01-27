@@ -1,0 +1,79 @@
+---
+import Card from "./ui/Card.astro";
+import foto from "@assets/foto.png";
+import Slider from "./ui/Slider.astro";
+
+const items = [
+  {
+    imgSrc: foto.src,
+    headingText: "Membranas",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Monitores y testers",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Accesorios",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Marcas",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+  {
+    imgSrc: foto.src,
+    headingText: "Aplicaciones",
+  },
+];
+---
+
+<section class="bg-bgDrAgua flex flex-col justify-center items-center gap-16">
+  <h1
+    class="p-20"
+    style="
+  color: var(--Pale-Color, #F2F6FF);
+font-size: 40px;
+font-style: normal;
+font-weight: 800;
+line-height: normal;"
+  >
+    Nuestras categorías de tendencia
+  </h1>
+  <Slider items={items} />
+  <button
+    class="text-white hover:bg-opacity-70 cursor-pointer transition-all bg-[#145EFF] text-xl m-10 mb-20"
+    style="display: inline-flex;
+padding: 15px 30px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 5px;
+"
+  >
+    Ver todas las categorías
+  </button>
+</section>

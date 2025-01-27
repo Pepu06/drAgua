@@ -1,0 +1,138 @@
+---
+import Card from "./Card.astro";
+
+interface Item {
+  imgSrc: string;
+  headingText: string;
+}
+
+const { items = [] }: { items?: Item[] } = Astro.props;
+---
+
+<div
+  class="carousel-container relative flex justify-center items-center w-7/12"
+>
+  <button
+    id="prev-btn"
+    class="carousel-prev absolute z-10 left-0 hover:scale-110 hover:cursor-pointer transition-all translate-x-[-50%]
+           flex justify-center items-center w-[70px] h-[70px]
+           bg-[#145EFF] rounded-full border border-opacity-50
+           border-[#113583]"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+    >
+      <path
+        d="M22.5 28.125L12.375 18L22.5 7.875"
+        stroke="#F2F6FF"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+
+  <div
+    id="carousel"
+    class="carousel-wrapper flex overflow-hidden gap-[8px]"
+  >
+    <div
+      class="carousel-inner flex transition-transform duration-300"
+      style="
+gap: 17.5px;"
+      id="carousel-inner"
+    >
+      {
+        items.map((item) => (
+          <div class="carousel-item flex-shrink-0">
+            <Card imgSrc={item.imgSrc} headingText={item.headingText} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <button
+    id="next-btn"
+    class="carousel-next absolute z-10 right-0 hover:scale-110 hover:cursor-pointer transition-all -translate-x-[-50%]
+           flex justify-center items-center w-[70px] h-[70px]
+           bg-[#145EFF] rounded-full border border-opacity-50
+           border-[#113583]"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+    >
+      <path
+        d="M13.5 7.875L23.625 18L13.5 28.125"
+        stroke="#F2F6FF"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const carouselInner = document.getElementById("carousel-inner");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const carouselItems = document.querySelectorAll(".carousel-item");
+
+    let currentIndex = 0;
+    const totalItems = carouselItems.length;
+    const itemsPerView = 5;
+
+    function updateCarousel() {
+      const itemWidth = carouselItems[0].offsetWidth + 8; // Item width + gap reducido
+      carouselInner.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+
+    function moveNext() {
+      currentIndex++;
+      if (currentIndex >= totalItems - itemsPerView + 1) {
+        // Cuando llegamos al final, volvemos al principio suavemente
+        currentIndex = 0;
+        carouselInner.style.transition = "none";
+        updateCarousel();
+        // Forzamos un reflow para que la transición se reinicie
+        carouselInner.offsetHeight;
+        carouselInner.style.transition = "transform 300ms";
+      }
+      updateCarousel();
+    }
+
+    function movePrev() {
+      currentIndex--;
+      if (currentIndex < 0) {
+        // Cuando estamos al inicio, vamos al final suavemente
+        currentIndex = totalItems - itemsPerView;
+        carouselInner.style.transition = "none";
+        updateCarousel();
+        // Forzamos un reflow para que la transición se reinicie
+        carouselInner.offsetHeight;
+        carouselInner.style.transition = "transform 300ms";
+      }
+      updateCarousel();
+    }
+
+    nextBtn.addEventListener("click", moveNext);
+    prevBtn.addEventListener("click", movePrev);
+
+    // Configuramos la transición inicial
+    carouselInner.style.transition = "transform 300ms";
+
+    // Auto-play (opcional - descomenta si lo quieres)
+    /*
+    const autoPlayInterval = 3000; // 3 segundos
+    setInterval(moveNext, autoPlayInterval);
+    */
+  });
+</script>
