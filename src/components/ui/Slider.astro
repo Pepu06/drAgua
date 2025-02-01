@@ -42,7 +42,7 @@ const { items = [] }: { items?: Item[] } = Astro.props;
         items.map((item) => (
           <a
             href={`/categorias/${item.nombre}`}
-            class="carousel-item flex-shrink-0 w-[calc((100%-4rem)/5)]"
+            class="carousel-item flex-shrink-0 w-full sm:w-[calc((100%-2rem)/1)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4rem)/5)]"
           >
             <Card imgSrc={item.imgSrc} headingText={item.nombre} />
           </a>

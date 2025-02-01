@@ -1,36 +1,37 @@
-<div id="to-top" class="fixed bottom-5 right-5">
+---
+// ScrollToTop.astro
+---
+
+<div id="scroll-to-top" class="fixed bottom-5 right-5">
   <button
-    class="flex w-[50px] h-[50px] justify-center items-center rounded-md border border-[#445A8B] bg-[#030E26] shadow-lg hover:bg-[#0A1936] transition-colors duration-300"
+    class="flex w-12 h-12 justify-center items-center rounded-md border border-gray-600 bg-gray-900 shadow-lg hover:bg-gray-800 transition-colors duration-300"
+    aria-label="Volver arriba"
   >
-    <div class="w-6 h-6">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M5 15.75L11.75 9L18.5 15.75"
-          stroke="#445A8B"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6 text-gray-400"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 15l-6-6-6 6"></path>
+    </svg>
   </button>
 </div>
 
-<script type="module">
-  // Ejecutar inmediatamente sin esperar al DOM
-  const toTopButton = document.querySelector("#to-top button");
+<script>
+  const scrollToTop = document.getElementById("scroll-to-top");
+  const button = scrollToTop?.querySelector("button");
 
-  if (toTopButton) {
-    toTopButton.onclick = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    };
-  }
+  // Manejar clic para scroll suave hacia arriba
+  button?.addEventListener("click", () => {
+    console.log("click");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
 </script>
