@@ -3,34 +3,19 @@ import Card from "./Card.astro";
 
 interface Item {
   imgSrc: string;
-  headingText: string;
+  nombre: string;
 }
 
 const { items = [] }: { items?: Item[] } = Astro.props;
 ---
 
-<div
-  class="carousel-container relative flex justify-center items-center w-3/4 mx-auto"
->
+<div class="carousel-container relative w-3/4 mx-auto">
   <button
     id="prev-btn"
-    class="carousel-prev absolute z-10 left-0 hover:scale-110 hover:cursor-pointer transition-all translate-x-[-50%]
+    class="carousel-prev absolute z-10 left-0 top-1/2 -translate-y-1/2 hover:scale-110 hover:cursor-pointer transition-all
            flex justify-center items-center w-[70px] h-[70px]
            bg-[#145EFF] rounded-full border border-opacity-50
-           border-[#113583]"
-    style="display: flex;
-width: 70px;
-height: 70px;
-padding: 17px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
-border-radius: 100px;
-border-top: 1px solid rgba(17, 53, 131, 0.50);
-border-right: 1px solid rgba(17, 53, 131, 0.50);
-border-left: 1px solid rgba(17, 53, 131, 0.50);
-background: var(--Brand-Color, #145EFF);
-box-shadow: 0px 6px 8px 0px #00091F;"
+           border-[#113583] shadow-lg translate-x-5"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -48,19 +33,19 @@ box-shadow: 0px 6px 8px 0px #00091F;"
     </svg>
   </button>
 
-  <div id="carousel" class="carousel-wrapper flex overflow-hidden">
+  <div id="carousel" class="overflow-hidden mx-[70px]">
     <div
-      class="carousel-inner flex transition-transform duration-300"
-      style="display: inline-flex;
-align-items: flex-start;
-gap: 17.5px;"
       id="carousel-inner"
+      class="flex transition-transform duration-300 ease-in-out gap-8"
     >
       {
         items.map((item) => (
-          <div class="carousel-item flex-shrink-0">
-            <Card imgSrc={item.imgSrc} headingText={item.headingText} />
-          </div>
+          <a
+            href={`/categorias/${item.nombre}`}
+            class="carousel-item flex-shrink-0 w-[calc((100%-4rem)/5)]"
+          >
+            <Card imgSrc={item.imgSrc} headingText={item.nombre} />
+          </a>
         ))
       }
     </div>
@@ -68,23 +53,10 @@ gap: 17.5px;"
 
   <button
     id="next-btn"
-    class="carousel-next absolute z-10 right-0 hover:scale-110 hover:cursor-pointer transition-all -translate-x-[-50%]
+    class="carousel-next absolute z-10 right-0 top-1/2 -translate-y-1/2 hover:scale-110 hover:cursor-pointer transition-all
            flex justify-center items-center w-[70px] h-[70px]
            bg-[#145EFF] rounded-full border border-opacity-50
-           border-[#113583]"
-    style="display: flex;
-width: 70px;
-height: 70px;
-padding: 17px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
-border-radius: 100px;
-border-top: 1px solid rgba(17, 53, 131, 0.50);
-border-right: 1px solid rgba(17, 53, 131, 0.50);
-border-left: 1px solid rgba(17, 53, 131, 0.50);
-background: var(--Brand-Color, #145EFF);
-box-shadow: 0px 6px 8px 0px rgba(0, 9, 31, 0.15);"
+           border-[#113583] shadow-lg -translate-x-5"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -104,69 +76,92 @@ box-shadow: 0px 6px 8px 0px rgba(0, 9, 31, 0.15);"
 </div>
 
 <script>
+  class Carousel {
+    constructor() {
+      this.container = document.getElementById("carousel");
+      this.inner = document.getElementById("carousel-inner");
+      this.items = Array.from(document.querySelectorAll(".carousel-item"));
+      this.prevBtn = document.getElementById("prev-btn");
+      this.nextBtn = document.getElementById("next-btn");
+
+      this.currentIndex = 0;
+      this.itemWidth = 0;
+      this.totalItems = this.items.length;
+      this.itemsPerView = 5;
+
+      this.initialize();
+    }
+
+    initialize() {
+      // Clonar elementos para el efecto infinito
+      const itemsToClone = 5;
+      const firstClones = this.items
+        .slice(0, itemsToClone)
+        .map((item) => item.cloneNode(true));
+      const lastClones = this.items
+        .slice(-itemsToClone)
+        .map((item) => item.cloneNode(true));
+
+      // Agregar clones al inicio y final
+      firstClones.forEach((clone) => this.inner.appendChild(clone));
+      lastClones.forEach((clone) =>
+        this.inner.insertBefore(clone, this.inner.firstChild)
+      );
+
+      // Calcular ancho del item y posición inicial
+      this.updateDimensions();
+      this.setPosition();
+
+      // Event listeners
+      this.prevBtn.addEventListener("click", () => this.move("prev"));
+      this.nextBtn.addEventListener("click", () => this.move("next"));
+      window.addEventListener("resize", () => this.updateDimensions());
+
+      // Configurar transición
+      this.inner.style.transition = "transform 0.3s ease-in-out";
+    }
+
+    updateDimensions() {
+      const item = this.items[0];
+      this.itemWidth =
+        item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
+      this.setPosition();
+    }
+
+    setPosition(index = this.currentIndex) {
+      const position = -(index + 5) * this.itemWidth;
+      this.inner.style.transform = `translateX(${position}px)`;
+    }
+
+    move(direction) {
+      const isNext = direction === "next";
+      this.currentIndex += isNext ? 1 : -1;
+
+      this.inner.style.transition = "transform 0.3s ease-in-out";
+      this.setPosition();
+
+      // Check for infinite scroll reset
+      if (isNext && this.currentIndex >= this.totalItems) {
+        this.resetPosition(0);
+      } else if (!isNext && this.currentIndex < 0) {
+        this.resetPosition(this.totalItems - 1);
+      }
+    }
+
+    resetPosition(index) {
+      setTimeout(() => {
+        this.inner.style.transition = "none";
+        this.currentIndex = index;
+        this.setPosition();
+        setTimeout(() => {
+          this.inner.style.transition = "transform 0.3s ease-in-out";
+        }, 50);
+      }, 300);
+    }
+  }
+
+  // Inicializar el carrusel cuando el DOM esté listo
   document.addEventListener("DOMContentLoaded", () => {
-    const carouselInner = document.getElementById("carousel-inner");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-
-    // Clonamos los elementos originales
-    const originalItems = document.querySelectorAll(".carousel-item");
-
-    // Añadimos el último elemento al principio y el primero al final
-    const lastClone = originalItems[originalItems.length - 1].cloneNode(true);
-    const firstClone = originalItems[0].cloneNode(true);
-
-    // Insertamos los clones
-    carouselInner.insertBefore(lastClone, carouselInner.firstChild);
-    carouselInner.appendChild(firstClone);
-
-    const carouselItems = document.querySelectorAll(".carousel-item");
-
-    let currentIndex = 1; // Empezamos en 1 porque ahora el índice 0 es el clon del último
-    const totalItems = carouselItems.length;
-    const itemsPerView = 5;
-
-    function updateCarousel(withTransition = true) {
-      const itemWidth = carouselItems[0].offsetWidth + 8; // Reducido el gap a 8px
-      if (!withTransition) {
-        carouselInner.style.transition = "none";
-      }
-      carouselInner.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-      if (!withTransition) {
-        carouselInner.offsetHeight; // Force reflow
-        carouselInner.style.transition = "transform 300ms";
-      }
-    }
-
-    function moveNext() {
-      currentIndex++;
-      updateCarousel();
-
-      if (currentIndex >= totalItems - itemsPerView) {
-        setTimeout(() => {
-          currentIndex = 1;
-          updateCarousel(false);
-        }, 300); // Esperamos a que termine la transición
-      }
-    }
-
-    function movePrev() {
-      currentIndex--;
-      updateCarousel();
-
-      if (currentIndex < 1) {
-        setTimeout(() => {
-          currentIndex = totalItems - itemsPerView - 1;
-          updateCarousel(false);
-        }, 300); // Esperamos a que termine la transición
-      }
-    }
-
-    nextBtn.addEventListener("click", moveNext);
-    prevBtn.addEventListener("click", movePrev);
-
-    // Configuración inicial
-    carouselInner.style.transition = "transform 300ms";
-    updateCarousel(false); // Posicionamos en el primer elemento real (no el clon)
+    new Carousel();
   });
 </script>

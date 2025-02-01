@@ -1,0 +1,50 @@
+---
+import { marked } from "marked";
+const { imgSrc, nombre, desc } = Astro.props;
+
+// Convertir el Markdown a HTML
+const descHTML = marked.parse(desc);
+
+// Eliminar las tablas del HTML generado
+const descHTMLWithoutTables = descHTML.replace(/<table[\s\S]*?<\/table>/g, "");
+---
+
+<div
+  style="display: flex;
+padding: 25px;
+flex-direction: column;
+align-items: center;
+gap: 30px;
+border-radius: 5px;
+border-top: 1px solid #111E39;
+border-right: 1px solid #111E39;
+border-left: 1px solid #111E39;
+background: #03102A;"
+>
+  <img
+    class="w-full object-cover rounded-lg"
+    style="
+height: 200px;"
+    src={imgSrc}
+    alt=""
+  />
+  <h2
+    class="text-center"
+    style="color: var(--Paragraph-Color, #93A0BC);
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 3.2px;"
+  >
+    {nombre}
+  </h2>
+  <div
+    style="color: var(--Paragraph-Color, #93A0BC);
+font-size: 16px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;"
+    set:html={descHTMLWithoutTables}
+  />
+</div>

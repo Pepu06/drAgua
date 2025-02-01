@@ -1,0 +1,36 @@
+<div id="to-top" class="fixed bottom-5 right-5">
+  <button
+    class="flex w-[50px] h-[50px] justify-center items-center rounded-md border border-[#445A8B] bg-[#030E26] shadow-lg hover:bg-[#0A1936] transition-colors duration-300"
+  >
+    <div class="w-6 h-6">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M5 15.75L11.75 9L18.5 15.75"
+          stroke="#445A8B"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </button>
+</div>
+
+<script is:inline>
+  // Ejecutar inmediatamente sin esperar al DOM
+  const toTopButton = document.querySelector("#to-top button");
+
+  if (toTopButton) {
+    toTopButton.onclick = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
+  }
+</script>

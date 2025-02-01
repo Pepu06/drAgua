@@ -5,40 +5,90 @@ import Search from "@components/ui/Search.astro";
 
 <header
   class="bg-bgDrAgua flex justify-between items-center fixed top-0 w-full z-50"
-  style="border-bottom: 1px solid var(--Border-Color, #13254F);"
+  style="border-bottom: 1px solid var(--Border-Color, #13254F);
+height: 70px;
+flex-shrink: 0;"
 >
   <div
-    class="flex items-center justify-center p-[20px] gap-x-2 text-white w-52"
+    class="px-10 text-white"
+    style="display: inline-flex;
+justify-content: center;
+align-items: center;
+gap: 10px;"
   >
-    <img height="50" width="50" src={Logo.src} alt="Logo" />
+    <img height="30" width="30" src={Logo.src} alt="Logo" />
     <h1 class="font-lato text-2xl font-bold">Dr. Agua</h1>
   </div>
   <div>
-    <nav class="flex items-center justify-center gap-x-16 text-white">
+    <nav
+      class="text-white"
+      style="display: inline-flex;
+justify-content: center;
+align-items: center;
+gap: 50px;"
+    >
       <a
-        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        style="display: flex;
+
+justify-content: center;
+align-items: center;
+color: var(--Pale-Color, #F2F6FF);
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;"
         href="/">Inicio</a
       >
       <a
-        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
-        href="#">Productos</a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        style="display: flex;
+justify-content: center;
+align-items: center;
+color: var(--Pale-Color, #F2F6FF);
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;"
+        href="/categorias">Categorias</a
       >
       <a
-        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
-        href="#">Aplicaciones</a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        style="display: flex;
+justify-content: center;
+align-items: center;
+color: var(--Pale-Color, #F2F6FF);
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;"
+        href="/marcas">Marcas</a
       >
       <a
-        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
-        href="#">Marcas</a
-      >
-      <a
-        class="font-lato text-2xl hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        style="display: flex;
+justify-content: center;
+align-items: center;
+color: var(--Pale-Color, #F2F6FF);
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;"
         href="/contacto">Contacto</a
       >
     </nav>
   </div>
-  <div class="flex items-center justify-end w-52">
-    <button class="bg-[#145EFF] p-8">
+  <div class="flex items-center justify-end ml-36">
+    <button
+      class="bg-[#145EFF]"
+      style="display: flex;
+width: 70px;
+height: 70px;
+padding: 23px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;"
+    >
       <Search />
     </button>
   </div>
