@@ -1,5 +1,5 @@
 ---
-import Card from "./Card.astro";
+import CardSlider from "./CardSlider.astro";
 
 interface Item {
   imgSrc: string;
@@ -44,7 +44,7 @@ const { items = [] }: { items?: Item[] } = Astro.props;
             href={`/categorias/${item.nombre}`}
             class="carousel-item flex sm:flex-shrink-0 w-full sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-3rem)/3)] xl:w-[calc((100%-4rem)/5)] justify-center items-center"
           >
-            <Card imgSrc={item.imgSrc} headingText={item.nombre} />
+            <CardSlider imgSrc={item.imgSrc} headingText={item.nombre} />
           </a>
         ))
       }
