@@ -32,21 +32,67 @@ line-height: 1.2;"
   >
     Marcas
   </h1>
+  <div class="flex flex-row justify-center items-center">
+    <button
+      data-sort="asc"
+      class="sort-btn hover:text-white text-[#445A8B] transition-colors"
+      style="font-size: clamp(16px, 3vw, 20px); font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
+    >
+      A-Z
+    </button>
+    <span
+      style="color: var(--Others-Color, #445A8B); font-size: clamp(16px, 3vw, 20px); margin: 0 10px;"
+      >|</span
+    >
+    <button
+      data-sort="desc"
+      class="sort-btn hover:text-white text-[#445A8B] transition-colors"
+      style="font-size: clamp(16px, 3vw, 20px); font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
+    >
+      Z-A
+    </button>
+  </div>
   <div
-    class="translate-y-14 w-screen"
+    class="w-screen"
     style="height: 1px;
 flex-shrink: 0;
 border-radius: 100px;
 background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.00) 100%);"
   >
   </div>
-  <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20" id="marcas-grid">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20" id="marcas-grid">
     {
       marcas.map((marca) => (
-        <a href={`/marcas/${marca.nombre}`}>
+        <a href={`/marcas/${marca.nombre}`} class="marca-item" data-name={marca.nombre}>
           <CardMarca imgSrc={marca.fotoUrl} headingText={marca.nombre} />
         </a>
       ))
     }
   </div>
 </section>
+
+<script>
+  const marcasGrid = document.getElementById("marcas-grid");
+  const sortButtons = document.querySelectorAll(".sort-btn");
+
+  sortButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const order = button.getAttribute("data-sort");
+      const items = Array.from(marcasGrid.children);
+
+      items.sort((a, b) => {
+        const nameA = a.getAttribute("data-name").toLowerCase();
+        const nameB = b.getAttribute("data-name").toLowerCase();
+
+        if (order === "asc") {
+          return nameA.localeCompare(nameB);
+        } else {
+          return nameB.localeCompare(nameA);
+        }
+      });
+
+      // Clear the grid and append sorted items
+      items.forEach((item) => marcasGrid.appendChild(item));
+    });
+  });
+</script>

@@ -2,6 +2,8 @@
 import Logo from "@assets/logo.png";
 import Search from "@components/ui/Search";
 import Menu from "@components/ui/Menu.astro";
+import { items } from "@lib/categories";
+import { marcas } from "@lib/marcas";
 ---
 
 <header
@@ -11,19 +13,19 @@ height: 70px;
 flex-shrink: 0;"
 >
   <a
-  href="/"
+    href="/"
     class="sm:px-10 px-2 text-white"
     style="display: inline-flex;
 justify-content: center;
 align-items: center;
 gap: 10px;"
   >
-    <img height="30" width="30" src={Logo.src} alt="Logo" loading="eager" />
+    <div class="w-[30px] h-[30px] bg-white"></div>
     <h1 class="font-lato text-2xl font-bold">Dr. Agua</h1>
-  </div>
+  </a>
   <div class="lg:flex hidden">
     <nav
-      class="text-white mr-80"
+      class="text-white mr-[150px]"
       style="display: inline-flex;
 justify-content: center;
 align-items: center;
@@ -32,7 +34,6 @@ gap: 50px;"
       <a
         class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
         style="display: flex;
-
 justify-content: center;
 align-items: center;
 color: var(--Pale-Color, #F2F6FF);
@@ -42,9 +43,10 @@ font-weight: 500;
 line-height: normal;"
         href="/">Inicio</a
       >
-      <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
-        style="display: flex;
+      <div class="relative group">
+        <a
+          class="hover:cursor-pointer hover:scale-105 transition-all duration-200 flex items-center gap-2"
+          style="display: flex;
 justify-content: center;
 align-items: center;
 color: var(--Pale-Color, #F2F6FF);
@@ -52,11 +54,43 @@ font-size: 20px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;"
-        href="/categorias">Categorias</a
-      >
-      <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
-        style="display: flex;
+          href="/categorias"
+        >
+          Categorias
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m6 9 6 6 6-6"></path>
+          </svg>
+        </a>
+        <div
+          class="absolute grid grid-cols-4 -left-40 mt-2 w-[600px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+          style="border: 1px solid var(--Border-Color, #13254F);"
+        >
+          {
+            items.map((item) => (
+              <a
+                href={`/categorias/${item.nombre}`}
+                class="flex justify-center items-center px-2 py-1 text-sm text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center"
+              >
+                {item.nombre}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="relative group">
+        <a
+          class="hover:cursor-pointer hover:scale-105 transition-all duration-200 flex items-center gap-2"
+          style="display: flex;
 justify-content: center;
 align-items: center;
 color: var(--Pale-Color, #F2F6FF);
@@ -64,8 +98,39 @@ font-size: 20px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;"
-        href="/marcas">Marcas</a
-      >
+          href="/marcas"
+        >
+          Marcas
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m6 9 6 6 6-6"></path>
+          </svg>
+        </a>
+        <div
+          class="absolute grid grid-cols-4 -left-40 mt-2 w-[500px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+          style="border: 1px solid var(--Border-Color, #13254F);"
+        >
+          {
+            marcas.map((marca) => (
+              <a
+                href={`/marcas/${marca.nombre}`}
+                class="flex justify-center items-center px-4 py-3 text-sm text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center"
+              >
+                {marca.nombre}
+              </a>
+            ))
+          }
+        </div>
+      </div>
       <a
         class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
         style="display: flex;
