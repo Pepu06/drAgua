@@ -52,15 +52,29 @@ import Search from "@components/ui/Search";
 </div>
 
 <script>
-  const menuButton = document.getElementById('menu-button');
-  const closeButton = document.getElementById('close-menu');
-  const sidebar = document.getElementById('sidebar');
+  function setupMenuHandlers() {
+    const menuButton = document.getElementById('menu-button');
+    const closeButton = document.getElementById('close-menu');
+    const sidebar = document.getElementById('sidebar');
 
-  menuButton?.addEventListener('click', () => {
-    sidebar?.classList.remove('translate-x-full');
-  });
+    // Remove existing event listeners if any
+    const newMenuButton = menuButton?.cloneNode(true);
+    const newCloseButton = closeButton?.cloneNode(true);
+    menuButton?.parentNode?.replaceChild(newMenuButton, menuButton);
+    closeButton?.parentNode?.replaceChild(newCloseButton, closeButton);
 
-  closeButton?.addEventListener('click', () => {
-    sidebar?.classList.add('translate-x-full');
-  });
+    newMenuButton?.addEventListener('click', () => {
+      sidebar?.classList.remove('translate-x-full');
+    });
+
+    newCloseButton?.addEventListener('click', () => {
+      sidebar?.classList.add('translate-x-full');
+    });
+  }
+
+  // Initial setup
+  setupMenuHandlers();
+
+  // Re-run setup when the page content updates
+  document.addEventListener('astro:page-load', setupMenuHandlers);
 </script>

@@ -1,6 +1,11 @@
 <section
-  class="relative h-[100vh] text-white flex items-center justify-center flex-col overflow-hidden bg-[url('/bgHero.png')] md:bg-fixed md:bg-cover md:bg-center"
->
+  class="relative h-[100vh] text-white flex items-center justify-center flex-col overflow-hidden">
+  <img
+    src="/bgHero.png"
+    alt="Background"
+    class="absolute inset-0 w-full h-full object-cover md:bg-fixed md:bg-center -z-10"
+    loading="eager"
+  />
   <div
     class="flex flex-col items-center justify-center gap-[50px] lg:w-[900px] sm:w-[450px]"
     style="

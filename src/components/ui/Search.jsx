@@ -12,9 +12,15 @@ const SearchButton = () => {
 
     // Initialize category map on component mount
     const categoryMap = useMemo(() => {
-        return new Map(items.flatMap(category => 
-            (category.productos || []).map(productId => [productId, category])
-        ));
+        const map = new Map();
+        items.forEach(category => {
+            if (category.productos) {
+                category.productos.forEach(productId => {
+                    map.set(productId, category);
+                });
+            }
+        });
+        return map;
     }, []);
 
     const findCategoryByProductId = useCallback((productId) => {
@@ -30,18 +36,25 @@ const SearchButton = () => {
         const term = event.target.value.toLowerCase().trim();
         setSearchTerm(event.target.value);
 
-        const results = term
-            ? productos
-                .filter(product => product.nombre.toLowerCase().includes(term))
-                .slice(0, 10)
-            : [];
+        if (!term) {
+            setSearchResults([]);
+            return;
+        }
+
+        const results = productos
+            .filter(product => 
+                product.nombre.toLowerCase().includes(term) ||
+                product.descripcion?.toLowerCase().includes(term)
+            )
+            .slice(0, 10);
+
         setSearchResults(results);
     }, []);
 
     const handleProductClick = useCallback((product) => {
         const category = findCategoryByProductId(product.id);
         if (category) {
-            window.location.href = `/categorias/${category.nombre.toLowerCase()}`;
+            window.location.href = `/categorias/${category.nombre}`;
         }
         setIsExpanded(false);
         setSearchTerm('');
@@ -57,8 +70,21 @@ const SearchButton = () => {
             }
         };
 
+        const handleEscapeKey = (event) => {
+            if (event.key === 'Escape') {
+                setIsExpanded(false);
+                setSearchTerm('');
+                setSearchResults([]);
+            }
+        };
+
         document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscapeKey);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
     }, []);
 
     const handleSearchClick = useCallback(() => {
