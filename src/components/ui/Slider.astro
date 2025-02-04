@@ -9,11 +9,11 @@ interface Item {
 const { items = [] }: { items?: Item[] } = Astro.props;
 ---
 
-<div class="carousel-container relative w-3/4 mx-auto">
+<div class="carousel-container relative w-full sm:w-3/4 mx-auto">
   <button
     id="prev-btn"
     class="carousel-prev absolute z-10 left-0 top-1/2 -translate-y-1/2 hover:scale-110 hover:cursor-pointer transition-all
-           flex justify-center items-center w-[70px] h-[70px]
+           flex justify-center items-center sm:w-[70px] sm:h-[70px] w-[40px] h-[40px]
            bg-[#145EFF] rounded-full border border-opacity-50
            border-[#113583] shadow-lg translate-x-5"
   >
@@ -33,16 +33,16 @@ const { items = [] }: { items?: Item[] } = Astro.props;
     </svg>
   </button>
 
-  <div id="carousel" class="overflow-hidden mx-[70px]">
+  <div id="carousel" class="overflow-hidden sm:mx-[70px]">
     <div
       id="carousel-inner"
-      class="flex transition-transform duration-300 ease-in-out lg:gap-8 sm:gap-0 justify-center items-center"
+      class="flex transition-transform duration-300 ease-in-out gap-2 sm:gap-4 lg:gap-8 justify-center items-center"
     >
       {
         items.map((item) => (
           <a
             href={`/categorias/${item.nombre}`}
-            class="carousel-item flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-3rem)/3)] xl:w-[calc((100%-4rem)/5)]"
+            class="carousel-item flex sm:flex-shrink-0 w-full sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-3rem)/3)] xl:w-[calc((100%-4rem)/5)] justify-center items-center"
           >
             <Card imgSrc={item.imgSrc} headingText={item.nombre} />
           </a>
@@ -54,7 +54,7 @@ const { items = [] }: { items?: Item[] } = Astro.props;
   <button
     id="next-btn"
     class="carousel-next absolute z-10 right-0 top-1/2 -translate-y-1/2 hover:scale-110 hover:cursor-pointer transition-all
-           flex justify-center items-center w-[70px] h-[70px]
+           flex justify-center items-center sm:w-[70px] sm:h-[70px] w-[40px] h-[40px]
            bg-[#145EFF] rounded-full border border-opacity-50
            border-[#113583] shadow-lg -translate-x-5"
   >
