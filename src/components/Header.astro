@@ -1,27 +1,29 @@
 ---
 import Logo from "@assets/logo.png";
-import Search from "@components/ui/Search.astro";
+import Search from "@components/ui/Search";
+import Menu from "@components/ui/Menu.astro";
 ---
 
 <header
-  class="bg-bgDrAgua flex justify-between items-center fixed top-0 w-full z-50"
+  class="bg-bgDrAgua flex justify-between items-center fixed top-0 w-full z-40"
   style="border-bottom: 1px solid var(--Border-Color, #13254F);
 height: 70px;
 flex-shrink: 0;"
 >
-  <div
+  <a
+  href="/"
     class="px-10 text-white"
     style="display: inline-flex;
 justify-content: center;
 align-items: center;
 gap: 10px;"
   >
-    <img height="30" width="30" src={Logo.src} alt="Logo" />
+    <img height="30" width="30" src={Logo.src} alt="Logo" loading="eager" />
     <h1 class="font-lato text-2xl font-bold">Dr. Agua</h1>
   </div>
-  <div>
+  <div class="lg:flex hidden">
     <nav
-      class="text-white"
+      class="text-white mr-80"
       style="display: inline-flex;
 justify-content: center;
 align-items: center;
@@ -78,18 +80,10 @@ line-height: normal;"
       >
     </nav>
   </div>
-  <div class="flex items-center justify-end ml-36">
-    <button
-      class="bg-[#145EFF]"
-      style="display: flex;
-width: 70px;
-height: 70px;
-padding: 23px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;"
-    >
-      <Search />
-    </button>
+  <div class="lg:flex hidden">
+    <Search client:load />
+  </div>
+  <div class="lg:hidden flex">
+    <Menu />
   </div>
 </header>

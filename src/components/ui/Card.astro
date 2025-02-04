@@ -7,7 +7,7 @@ const { imgSrc, headingText } = Astro.props;
   style="width: 200px;
   height: 300px;"
 >
-  <img class="w-full h-[160px] object-cover rounded-lg" src={imgSrc} alt="" />
+  <img class="w-full h-[160px] object-cover rounded-lg" loading="eager" src={imgSrc} alt="" />
   <h2
     class="text-[#93A0BC] text-sm font-medium tracking-[3.2px] text-center flex justify-center items-center"
   >

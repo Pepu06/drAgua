@@ -6,40 +6,41 @@ import { marcas } from "@lib/marcas";
 ---
 
 <section
-  class="bg-bgDrAgua flex justify-center items-center flex-col pt-40 gap-8"
+  class="bg-bgDrAgua flex justify-center items-center flex-col pt-40 gap-8 overflow-x-hidden"
   style="
 border-bottom: 1px solid var(--Border-Color, #13254F);
 "
 >
   <h2
+    class="text-center"
     style="color: var(--Pale-Color, #F2F6FF);
-font-size: 14px;
+font-size: clamp(12px, 2vw, 14px);
 font-style: normal;
 font-weight: 400;
-line-height: normal;
-letter-spacing: 2.8px;"
+line-height: 1.4;
+letter-spacing: 2px;"
   >
     <span class="text-white/75">INICIO</span> / MARCAS
   </h2>
   <h1
+    class="text-center"
     style="color: #FFF;
-font-size: 36px;
+font-size: clamp(24px, 5vw, 36px);
 font-style: normal;
 font-weight: 800;
-line-height: normal;"
+line-height: 1.2;"
   >
     Marcas
   </h1>
   <div
-    class="translate-y-14"
-    style="width: 1920px;
-height: 1px;
+    class="translate-y-14 w-screen"
+    style="height: 1px;
 flex-shrink: 0;
 border-radius: 100px;
 background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.00) 100%);"
   >
   </div>
-  <div class="grid grid-cols-5 gap-4 p-20">
+  <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20" id="marcas-grid">
     {
       marcas.map((marca) => (
         <a href={`/marcas/${marca.nombre}`}>

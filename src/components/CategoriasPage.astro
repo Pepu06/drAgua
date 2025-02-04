@@ -11,21 +11,23 @@ border-bottom: 1px solid var(--Border-Color, #13254F);
 "
 >
   <h2
+    class="text-center"
     style="color: var(--Pale-Color, #F2F6FF);
-font-size: 14px;
+font-size: clamp(12px, 2vw, 14px);
 font-style: normal;
 font-weight: 400;
-line-height: normal;
-letter-spacing: 2.8px;"
+line-height: 1.4;
+letter-spacing: 2px;"
   >
     <span class="text-white/75">INICIO</span> / CATEGORIAS
   </h2>
   <h1
+    class="text-center"
     style="color: #FFF;
-font-size: 36px;
+font-size: clamp(24px, 5vw, 36px);
 font-style: normal;
 font-weight: 800;
-line-height: normal;"
+line-height: 1.2;"
   >
     Categorias
   </h1>
@@ -33,18 +35,18 @@ line-height: normal;"
     <button
       data-sort="asc"
       class="sort-btn hover:text-white text-[#445A8B] transition-colors"
-      style="font-size: 20px; font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
+      style="font-size: clamp(16px, 3vw, 20px); font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
     >
       A-Z
     </button>
     <span
-      style="color: var(--Others-Color, #445A8B); font-size: 20px; margin: 0 10px;"
+      style="color: var(--Others-Color, #445A8B); font-size: clamp(16px, 3vw, 20px); margin: 0 10px;"
       >|</span
     >
     <button
       data-sort="desc"
       class="sort-btn hover:text-white text-[#445A8B] transition-colors"
-      style="font-size: 20px; font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
+      style="font-size: clamp(16px, 3vw, 20px); font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 4px;"
     >
       Z-A
     </button>
@@ -54,7 +56,7 @@ line-height: normal;"
     style="width: 100vw; height: 1px; flex-shrink: 0; border-radius: 100px; background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.00) 100%);"
   >
   </div>
-  <div class="grid grid-cols-5 gap-4 p-20" id="categories-grid">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20" id="categories-grid">
     {
       items.map((item) => (
         <a

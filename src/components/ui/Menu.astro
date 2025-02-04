@@ -1,0 +1,66 @@
+---
+import HamburgerMenu from "@components/icons/HamburgerMenu.astro";
+import Search from "@components/ui/Search";
+---
+
+<div class="relative">
+  <button
+    id="menu-button"
+    class="bg-[#145EFF] w-[70px] h-[70px] p-6 flex justify-center items-center flex-shrink-0 hover:bg-blue-600 transition-colors z-10 text-white"
+  >
+    <HamburgerMenu />
+  </button>
+
+  <div
+    id="sidebar"
+    class="fixed top-0 right-0 h-screen w-[326px] bg-bgDrAgua transform translate-x-full transition-transform duration-300 ease-in-out z-50"
+    style="border-left: 1px solid var(--Border-Color, #13254F);"
+  >
+    <div class="flex justify-between items-center">
+      <button
+        id="close-menu"
+        class="bg-[#145EFF] w-[70px] h-[70px] p-6 flex justify-center items-center hover:bg-blue-600 transition-colors text-white"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z"/>
+        </svg>
+      </button>
+      <div class="">
+        <Search client:load />
+      </div>
+    </div>
+
+    <nav class="flex flex-col items-center gap-8 mt-8 text-white">
+      <a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        href="/">Inicio</a
+      >
+      <a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        href="/categorias">Categorias</a
+      >
+      <a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        href="/marcas">Marcas</a
+      >
+      <a
+        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        href="/contacto">Contacto</a
+      >
+    </nav>
+  </div>
+</div>
+
+<script>
+  const menuButton = document.getElementById('menu-button');
+  const closeButton = document.getElementById('close-menu');
+  const sidebar = document.getElementById('sidebar');
+
+  menuButton?.addEventListener('click', () => {
+    sidebar?.classList.remove('translate-x-full');
+  });
+
+  closeButton?.addEventListener('click', () => {
+    sidebar?.classList.add('translate-x-full');
+  });
+</script>

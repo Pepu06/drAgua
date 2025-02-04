@@ -43,26 +43,26 @@ const uniqueSegment = [
 border-bottom: 1px solid var(--Border-Color, #13254F);
 "
   >
-    <h2
+    <h2 class="text-center"
       style="color: var(--Pale-Color, #F2F6FF);
-font-size: 14px;
+font-size: clamp(12px, 3vw, 14px);
 font-style: normal;
 font-weight: 400;
-line-height: normal;
-letter-spacing: 2.8px;"
+line-height: 1.4;
+letter-spacing: 2px;"
     >
       <span class="text-white/75">INICIO / CATEGORIAS</span> / {item.nombre}
     </h2>
-    <h1
+    <h1 class="flex justify-center items-center text-center"
       style="color: #FFF;
-font-size: 36px;
+font-size: clamp(24px, 5vw, 36px);
 font-style: normal;
 font-weight: 800;
-line-height: normal;"
+line-height: 1.2;"
     >
       {item.nombre.charAt(0).toUpperCase() + item.nombre.slice(1).toLowerCase()}
     </h1>
-    <div class="flex flex-wrap justify-center gap-5 m-5">
+    <div class="flex flex-wrap justify-center lg:gap-5 sm:gap-2 lg:m-5 sm:m-2">
       {
         uniqueSegment.length > 0 &&
           uniqueSegment.map((segment) =>
@@ -97,7 +97,7 @@ border-radius: 100px;
 background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.00) 100%);"
     >
     </div>
-    <div class="p-10">
+    <div class="lg:p-10 sm:p-5">
       {
         uniqueSegment.length > 0 ? (
           <>
@@ -111,12 +111,12 @@ background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.0
                   <section id={segment.id} class="mb-10">
                     <h2
                       id={`segmento-${segment.nombre}`}
-                      class="text-white font-semibold text-5xl text-center py-10"
+                      class="text-white font-semibold text-2xl md:text-3xl lg:text-5xl text-center py-5 lg:py-10"
                     >
                       {segment.nombre}
                     </h2>
                     <div
-                      class={`grid ${productosPorSegmento.length < 3 ? "grid-cols-3 justify-center" : productosPorSegmento.length < 4 ? "grid-cols-3" : "grid-cols-4"} gap-4`}
+                      class={`grid sm:grid-cols-1 md:grid-cols-2 ${productosPorSegmento.length < 3 ? "lg:grid-cols-3 justify-center" : productosPorSegmento.length < 4 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-4`}
                     >
                       {productosPorSegmento.map((product) => (
                         <CardItem
@@ -147,7 +147,7 @@ background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.0
                       : "grid-cols-4";
                 return (
                   <section class="mb-10">
-                    <h2 class="text-light-blue font-semibold text-5xl text-center py-10">
+                    <h2 class="text-light-blue font-semibold text-2xl md:text-3xl lg:text-5xl text-center py-5 lg:py-10">
                       Otros productos
                     </h2>
                     <div class={`grid ${gridCols} gap-4`}>
@@ -168,7 +168,7 @@ background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.0
           </>
         ) : (
           <div
-            class={`grid ${filteredProductos.length < 3 ? "grid-cols-3 justify-center" : filteredProductos.length < 4 ? "grid-cols-3" : "grid-cols-4"} gap-4`}
+            class={`grid sm:grid-cols-1 md:grid-cols-2 ${filteredProductos.length < 3 ? "lg:grid-cols-3 justify-center" : filteredProductos.length < 4 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-4`}
           >
             {filteredProductos.map((product) => (
               <CardItem

@@ -47,26 +47,23 @@ const uniqueSegment = [
   >
     <h2
       style="color: var(--Pale-Color, #F2F6FF);
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 14px);
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
-  letter-spacing: 2.8px;"
-    >
-      <span class="text-white/75">INICIO / CATEGORIAS</span> / {marca.nombre}
-    </h2>
-    <h1
-      style="color: #FFF;
-  font-size: 36px;
+  line-height: 1.4;
+  letter-spacing: 2px;"
+  >
+    <span class="text-white/75">INICIO / CATEGORIAS</span> / {marca.nombre}
+  </h2>
+  <h1
+    style="color: #FFF;
+  font-size: clamp(24px, 5vw, 36px);
   font-style: normal;
   font-weight: 800;
-  line-height: normal;"
-    >
-      {
-        marca.nombre.charAt(0).toUpperCase() +
-          marca.nombre.slice(1).toLowerCase()
-      }
-    </h1>
+  line-height: 1.2;"
+  >
+    {marca.nombre.charAt(0).toUpperCase() + marca.nombre.slice(1).toLowerCase()}
+  </h1>
     <div class="flex flex-wrap justify-center gap-5 m-5">
       {
         uniqueSegment.length > 0 &&
@@ -105,7 +102,7 @@ const uniqueSegment = [
                 return (
                   <section id={segment.id} class="mb-10">
                     <div
-                      class={`grid ${productosPorSegmento.length < 3 ? "grid-cols-3 justify-center" : productosPorSegmento.length < 4 ? "grid-cols-3" : "grid-cols-4"} gap-4`}
+                      class={`grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosPorSegmento.length < 3 ? "3 justify-center" : "4"} gap-4 p-4 md:p-10`}
                     >
                       {productosPorSegmento.map((product) => (
                         <CardItem
@@ -139,7 +136,7 @@ const uniqueSegment = [
                     <h2 class="text-light-blue font-semibold text-5xl text-center py-10">
                       Otros productos
                     </h2>
-                    <div class={`grid ${gridCols} gap-4`}>
+                    <div class={`grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosSinSegmento.length < 3 ? "3 justify-center" : "4"} gap-4 p-4 md:p-10`}>
                       {productosSinSegmento.map((product) => (
                         <CardItem
                           key={product.id}
@@ -157,7 +154,7 @@ const uniqueSegment = [
           </>
         ) : (
           <div
-            class={`grid ${filteredProductos.length < 3 ? "grid-cols-3 justify-center" : filteredProductos.length < 4 ? "grid-cols-3" : "grid-cols-4"} gap-4`}
+            class={`grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-${filteredProductos.length < 3 ? "3 justify-center" : "4"} gap-4 p-4 md:p-10`}
           >
             {filteredProductos.map((product) => (
               <CardItem

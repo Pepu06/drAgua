@@ -36,13 +36,13 @@ const { items = [] }: { items?: Item[] } = Astro.props;
   <div id="carousel" class="overflow-hidden mx-[70px]">
     <div
       id="carousel-inner"
-      class="flex transition-transform duration-300 ease-in-out gap-8"
+      class="flex transition-transform duration-300 ease-in-out lg:gap-8 sm:gap-0 justify-center items-center"
     >
       {
         items.map((item) => (
           <a
             href={`/categorias/${item.nombre}`}
-            class="carousel-item flex-shrink-0 w-full sm:w-[calc((100%-2rem)/1)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4rem)/5)]"
+            class="carousel-item flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-3rem)/3)] xl:w-[calc((100%-4rem)/5)]"
           >
             <Card imgSrc={item.imgSrc} headingText={item.nombre} />
           </a>
@@ -75,93 +75,96 @@ const { items = [] }: { items?: Item[] } = Astro.props;
   </button>
 </div>
 
-<script type="module">
-  class Carousel {
-    constructor() {
-      this.container = document.getElementById("carousel");
-      this.inner = document.getElementById("carousel-inner");
-      this.items = Array.from(document.querySelectorAll(".carousel-item"));
-      this.prevBtn = document.getElementById("prev-btn");
-      this.nextBtn = document.getElementById("next-btn");
+<script is:inline>
+  // Ejecutar inmediatamente
+  (() => {
+    class Carousel {
+      constructor() {
+        this.container = document.getElementById("carousel");
+        this.inner = document.getElementById("carousel-inner");
+        this.items = Array.from(document.querySelectorAll(".carousel-item"));
+        this.prevBtn = document.getElementById("prev-btn");
+        this.nextBtn = document.getElementById("next-btn");
 
-      this.currentIndex = 0;
-      this.itemWidth = 0;
-      this.totalItems = this.items.length;
-      this.itemsPerView = 5;
+        this.currentIndex = 0;
+        this.itemWidth = 0;
+        this.totalItems = this.items.length;
+        this.itemsPerView = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1280 ? 3 : 5;
 
-      this.initialize();
-    }
+        this.initialize();
+      }
 
-    initialize() {
-      // Clonar elementos para el efecto infinito
-      const itemsToClone = 5;
-      const firstClones = this.items
-        .slice(0, itemsToClone)
-        .map((item) => item.cloneNode(true));
-      const lastClones = this.items
-        .slice(-itemsToClone)
-        .map((item) => item.cloneNode(true));
+      initialize() {
+        // Clonar elementos para el efecto infinito
+        const itemsToClone = 5;
+        const firstClones = this.items
+          .slice(0, itemsToClone)
+          .map((item) => item.cloneNode(true));
+        const lastClones = this.items
+          .slice(-itemsToClone)
+          .map((item) => item.cloneNode(true));
 
-      // Agregar clones al inicio y final
-      firstClones.forEach((clone) => this.inner.appendChild(clone));
-      lastClones.forEach((clone) =>
-        this.inner.insertBefore(clone, this.inner.firstChild)
-      );
+        // Agregar clones al inicio y final
+        firstClones.forEach((clone) => this.inner.appendChild(clone));
+        lastClones.forEach((clone) =>
+          this.inner.insertBefore(clone, this.inner.firstChild)
+        );
 
-      // Calcular ancho del item y posición inicial
-      this.updateDimensions();
-      this.setPosition();
+        // Calcular ancho del item y posición inicial
+        this.updateDimensions();
+        this.setPosition();
 
-      // Event listeners
-      this.prevBtn.addEventListener("click", () => this.move("prev"));
-      this.nextBtn.addEventListener("click", () => this.move("next"));
-      window.addEventListener("resize", () => this.updateDimensions());
+        // Event listeners
+        this.prevBtn.addEventListener("click", () => this.move("prev"));
+        this.nextBtn.addEventListener("click", () => this.move("next"));
+        window.addEventListener("resize", () => this.updateDimensions());
 
-      // Configurar transición
-      this.inner.style.transition = "transform 0.3s ease-in-out";
-    }
+        // Configurar transición
+        this.inner.style.transition = "transform 0.3s ease-in-out";
+      }
 
-    updateDimensions() {
-      const item = this.items[0];
-      this.itemWidth =
-        item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
-      this.setPosition();
-    }
+      updateDimensions() {
+        const item = this.items[0];
+        this.itemWidth =
+          item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
+        this.setPosition();
+      }
 
-    setPosition(index = this.currentIndex) {
-      const position = -(index + 5) * this.itemWidth;
-      this.inner.style.transform = `translateX(${position}px)`;
-    }
+      setPosition(index = this.currentIndex) {
+        const position = -(index + 5) * this.itemWidth;
+        this.inner.style.transform = `translateX(${position}px)`;
+      }
 
-    move(direction) {
-      const isNext = direction === "next";
-      this.currentIndex += isNext ? 1 : -1;
+      move(direction) {
+        const isNext = direction === "next";
+        this.currentIndex += isNext ? 1 : -1;
 
-      this.inner.style.transition = "transform 0.3s ease-in-out";
-      this.setPosition();
+        this.inner.style.transition = "transform 0.3s ease-in-out";
+        this.setPosition();
 
-      // Check for infinite scroll reset
-      if (isNext && this.currentIndex >= this.totalItems) {
-        this.resetPosition(0);
-      } else if (!isNext && this.currentIndex < 0) {
-        this.resetPosition(this.totalItems - 1);
+        // Check for infinite scroll reset
+        if (isNext && this.currentIndex >= this.totalItems) {
+          this.resetPosition(0);
+        } else if (!isNext && this.currentIndex < 0) {
+          this.resetPosition(this.totalItems - 1);
+        }
+      }
+
+      resetPosition(index) {
+        setTimeout(() => {
+          this.inner.style.transition = "none";
+          this.currentIndex = index;
+          this.setPosition();
+          setTimeout(() => {
+            this.inner.style.transition = "transform 0.3s ease-in-out";
+          }, 50);
+        }, 300);
       }
     }
-
-    resetPosition(index) {
-      setTimeout(() => {
-        this.inner.style.transition = "none";
-        this.currentIndex = index;
-        this.setPosition();
-        setTimeout(() => {
-          this.inner.style.transition = "transform 0.3s ease-in-out";
-        }, 50);
-      }, 300);
+    
+    // Inicializar inmediatamente si los elementos existen
+    if (document.getElementById("carousel")) {
+      new Carousel();
     }
-  }
-
-  // Inicializar el carrusel cuando el DOM esté listo
-  document.addEventListener("DOMContentLoaded", () => {
-    new Carousel();
-  });
+  })();
 </script>
