@@ -20,7 +20,8 @@ font-weight: 400;
 line-height: 1.4;
 letter-spacing: 2px;"
   >
-    <span class="text-white/75">INICIO</span> / MARCAS
+    <a class="text-white/75" href="/">INICIO</a>
+    <span class="text-white/75"> / </span> / MARCAS
   </h2>
   <h1
     class="text-center"
@@ -60,10 +61,17 @@ border-radius: 100px;
 background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.00) 100%);"
   >
   </div>
-  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20" id="marcas-grid">
+  <div
+    class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 md:p-10 lg:p-20"
+    id="marcas-grid"
+  >
     {
       marcas.map((marca) => (
-        <a href={`/marcas/${marca.nombre}`} class="marca-item" data-name={marca.nombre}>
+        <a
+          href={`/marcas/${marca.nombre}`}
+          class="marca-item"
+          data-name={marca.nombre}
+        >
           <CardMarca imgSrc={marca.fotoUrl} headingText={marca.nombre} />
         </a>
       ))

@@ -72,7 +72,7 @@ import { marcas } from "@lib/marcas";
             items.map((item) => (
               <a
                 href={`/categorias/${item.nombre}`}
-                class="text-sm text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap"
+                class="text-sm text-wrap text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap"
               >
                 {item.nombre}
               </a>
@@ -101,13 +101,13 @@ import { marcas } from "@lib/marcas";
         >
         <div
           id="marcas-dropdown"
-          class="hidden grid grid-cols-2 w-full bg-[#0B1633] py-2 px-4 rounded-md overflow-y-auto max-h-[300px]"
+          class="hidden grid grid-cols-1 w-full bg-[#0B1633] py-2 px-4 rounded-md overflow-y-auto max-h-[300px]"
         >
           {
             marcas.map((marca) => (
               <a
                 href={`/marcas/${marca.nombre}`}
-                class="flex justify-center items-center text-center text-sm text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center"
+                class="flex text-wrap justify-center items-center text-center text-sm text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center"
               >
                 {marca.nombre}
               </a>

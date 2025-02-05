@@ -98,7 +98,7 @@ const SearchButton = () => {
         <div className="flex items-center justify-end relative" ref={searchRef}>
             <div className="relative flex items-center">
                 <div
-                    className={`absolute right-[70px] transition-all duration-300 ${isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'}`}
+                    className={`absolute right-[70px] transition-all duration-300 ${isExpanded ? 'w-[280px] opacity-100' : 'w-0 opacity-0'}`}
                 >
                     <input
                         ref={inputRef}

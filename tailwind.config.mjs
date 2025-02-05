@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        bgDrAgua: "#030E26",
-        bgDrAguaDark: "#00091F",
+        bgDrAgua: "#0A1734",
+        bgDrAguaDark: "#000E30",
       },
     },
   },
