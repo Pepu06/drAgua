@@ -1,5 +1,5 @@
 ---
-import Logo from "@assets/logo.png";
+import Logo from "@assets/logo.jpeg";
 import Search from "@components/ui/Search";
 import Menu from "@components/ui/Menu.astro";
 import { items } from "@lib/categories";
@@ -20,12 +20,11 @@ justify-content: center;
 align-items: center;
 gap: 10px;"
   >
-    <div class="w-[30px] h-[30px] bg-white"></div>
-    <h1 class="font-lato text-2xl font-bold">Dr. Agua</h1>
+<img src={Logo.src}  alt="Dr. Agua Logo" class="w-auto h-[30px] bg-white">    
   </a>
   <div class="lg:flex hidden">
     <nav
-      class="text-white mr-[150px]"
+      class="text-white ml-[100px] mr-[150px]"
       style="display: inline-flex;
 justify-content: center;
 align-items: center;
