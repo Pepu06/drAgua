@@ -1,12 +1,13 @@
 ---
 import { marked } from "marked";
-const { imgSrc, nombre, desc } = Astro.props;
+const { imgSrc, nombre, desc, nombreUrl } = Astro.props;
 
 // Convertir el Markdown a HTML
 const descHTML = marked.parse(desc);
 ---
 
-<div
+<a
+href={`/productos/${nombreUrl}`}
   style="display: flex;
 padding: 25px;
 flex-direction: column;
@@ -46,7 +47,7 @@ font-weight: 300;
 line-height: normal;"
     />
   </div>
-</div>
+</a>
 
 <style>
   /* Table styles */

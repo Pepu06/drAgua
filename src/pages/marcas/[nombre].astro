@@ -70,9 +70,7 @@ const uniqueSegment = [
           marca.nombre.slice(1).toLowerCase()
       }
     </h1>
-    <div
-      class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1"
-    >
+    <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
       {
         uniqueSegment.length > 0 &&
           uniqueSegment.map(
@@ -121,6 +119,7 @@ const uniqueSegment = [
                           imgSrc={product.fotoUrl}
                           nombre={product.nombre}
                           desc={product.descripcion}
+                          nombreUrl={product.urlName}
                         />
                       ))}
                     </div>
@@ -156,6 +155,7 @@ const uniqueSegment = [
                           imgSrc={product.fotoUrl}
                           nombre={product.nombre}
                           desc={product.descripcion}
+                          nombreUrl={product.urlName}
                         />
                       ))}
                     </div>
@@ -175,6 +175,7 @@ const uniqueSegment = [
                 imgSrc={product.fotoUrl}
                 nombre={product.nombre}
                 desc={product.descripcion}
+                nombreUrl={product.urlName}
               />
             ))}
           </div>
