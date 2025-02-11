@@ -71,6 +71,21 @@ line-height: 1.2;"
         {
           uniqueSegment.length > 0 &&
             uniqueSegment
+              .filter((segment) => !segment.marca)
+              .map((segment) => (
+                <a
+                  class="bg-[#145EFF] text-white py-2 px-4 rounded flex justify-center items-center segment-button hover:scale-105 transition-all"
+                  href={`#${segment.id}`}
+                >
+                  {segment.nombre}
+                </a>
+              ))
+        }
+      </div>
+      <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
+        {
+          uniqueSegment.length > 0 &&
+            uniqueSegment
               .filter((segment) => segment.marca)
               .map((segment) => (
                 <a
@@ -82,21 +97,6 @@ line-height: 1.2;"
                     alt={segment.nombre}
                     class="h-14 object-cover rounded-md"
                   />
-                </a>
-              ))
-        }
-      </div>
-      <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
-        {
-          uniqueSegment.length > 0 &&
-            uniqueSegment
-              .filter((segment) => !segment.marca)
-              .map((segment) => (
-                <a
-                  class="bg-[#145EFF] text-white py-2 px-4 rounded flex justify-center items-center segment-button hover:scale-105 transition-all"
-                  href={`#${segment.id}`}
-                >
-                  {segment.nombre}
                 </a>
               ))
         }
@@ -164,7 +164,9 @@ background: radial-gradient(50% 50% at 50% 50%, #13254F 0%, rgba(19, 37, 79, 0.0
                     <h2 class="text-white font-semibold text-2xl md:text-3xl lg:text-5xl text-center py-5 lg:py-10">
                       Otros productos
                     </h2>
-                    <div class={`grid grid-cols-1 md:grid-cols-2 ${productosSinSegmento.length <= 3 ? "lg:grid-cols-3 justify-center" : "lg:grid-cols-4"} gap-4`}>
+                    <div
+                      class={`grid grid-cols-1 md:grid-cols-2 ${productosSinSegmento.length <= 3 ? "lg:grid-cols-3 justify-center" : "lg:grid-cols-4"} gap-4`}
+                    >
                       {productosSinSegmento.map((product) => (
                         <CardItem
                           key={product.id}
