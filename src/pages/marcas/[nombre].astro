@@ -111,7 +111,7 @@ const uniqueSegment = [
                       {segment.nombre}
                     </h2>
                     <div
-                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosPorSegmento.length < 3 ? "3 justify-center" : "3"} gap-4 md:p-4 md:p-10`}
+                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosPorSegmento.length < 3 ? "3 justify-center" : "3"} gap-4 md:p-10`}
                     >
                       {productosPorSegmento.map((product) => (
                         <CardItem
@@ -146,7 +146,7 @@ const uniqueSegment = [
                       Otros productos
                     </h2>
                     <div
-                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosSinSegmento.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-4 md:p-10`}
+                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosSinSegmento.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-10`}
                     >
                       {productosSinSegmento.map((product) => (
                         <CardItem
@@ -165,7 +165,7 @@ const uniqueSegment = [
           </>
         ) : (
           <div
-            class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${filteredProductos.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-4 md:p-10`}
+            class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${filteredProductos.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-10`}
           >
             {filteredProductos.map((product) => (
               <CardItem

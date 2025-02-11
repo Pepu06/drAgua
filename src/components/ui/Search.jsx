@@ -98,7 +98,7 @@ const SearchButton = () => {
         <div className="flex items-center justify-end relative" ref={searchRef}>
             <div className="relative flex items-center">
                 <div
-                    className={`absolute right-[70px] transition-all duration-300 ${isExpanded ? 'w-[280px] opacity-100' : 'w-0 opacity-0'}`}
+                    className={`absolute right-[70px] transition-all duration-300 ${isExpanded ? 'w-[250px] opacity-100' : 'w-0 opacity-0'}`}
                 >
                     <input
                         ref={inputRef}
@@ -120,7 +120,7 @@ const SearchButton = () => {
             </div>
 
             {isExpanded && searchResults.length > 0 && (
-                <div className="absolute right-[70px] top-14 w-64 bg-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto z-50">
+                <div className="absolute right-[70px] top-14 w-[250px] bg-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto z-50">
                     {searchResults.map((result) => (
                         <div
                             key={result.id}
