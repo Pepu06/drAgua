@@ -70,21 +70,41 @@ const uniqueSegment = [
           marca.nombre.slice(1).toLowerCase()
       }
     </h1>
-    <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
-      {
-        uniqueSegment.length > 0 &&
-          uniqueSegment.map(
-            (segment) =>
-              !segment.marca && (
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
+        {
+          uniqueSegment.length > 0 &&
+            uniqueSegment
+              .filter((segment) => segment.marca)
+              .map((segment) => (
+                <a
+                  class="segment-button hover:scale-105 transition-all shadow-md"
+                  href={"#segmento-" + segment.nombre}
+                >
+                  <img
+                    src={segment.fotoUrl}
+                    alt={segment.nombre}
+                    class="h-14 object-cover rounded-md"
+                  />
+                </a>
+              ))
+        }
+      </div>
+      <div class="flex flex-wrap justify-center lg:gap-5 md:gap-2 gap-1">
+        {
+          uniqueSegment.length > 0 &&
+            uniqueSegment
+              .filter((segment) => !segment.marca)
+              .map((segment) => (
                 <a
                   class="bg-[#145EFF] text-white py-2 px-4 rounded flex justify-center items-center segment-button hover:scale-105 transition-all"
                   href={`#${segment.id}`}
                 >
                   {segment.nombre}
                 </a>
-              ),
-          )
-      }
+              ))
+        }
+      </div>
     </div>
     <div
       class="w-screen"
@@ -111,7 +131,7 @@ const uniqueSegment = [
                       {segment.nombre}
                     </h2>
                     <div
-                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosPorSegmento.length < 3 ? "3 justify-center" : "3"} gap-4 md:p-10`}
+                      class={`grid grid-cols-1 md:grid-cols-2 ${productosPorSegmento.length <= 3 ? "lg:grid-cols-3 justify-center" : "lg:grid-cols-4"} gap-4`}
                     >
                       {productosPorSegmento.map((product) => (
                         <CardItem
@@ -146,7 +166,7 @@ const uniqueSegment = [
                       Otros productos
                     </h2>
                     <div
-                      class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${productosSinSegmento.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-10`}
+                      class={`grid grid-cols-1 md:grid-cols-2 ${productosSinSegmento.length <= 3 ? "lg:grid-cols-3 justify-center" : "lg:grid-cols-4"} gap-4`}
                     >
                       {productosSinSegmento.map((product) => (
                         <CardItem
@@ -165,7 +185,7 @@ const uniqueSegment = [
           </>
         ) : (
           <div
-            class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${filteredProductos.length < 3 ? "3 justify-center" : "4"} gap-4 md:p-10`}
+            class={`grid grid-cols-1 md:grid-cols-2 ${filteredProductos.length <= 3 ? "lg:grid-cols-3 justify-center" : "lg:grid-cols-4"} gap-4`}
           >
             {filteredProductos.map((product) => (
               <CardItem
