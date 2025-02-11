@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import { productos } from "@lib/products";
 import { items } from "@lib/categories";
 
+//aosoas
 export async function getStaticPaths() {
     return productos
         .filter((producto) => producto.urlName && producto.urlName.length > 0)
