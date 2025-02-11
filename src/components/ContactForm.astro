@@ -113,3 +113,81 @@ flex-shrink: 0;">
     color: #445a8b;
   }
 </style>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+
+<script type="module">
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+
+      const data = {
+        name: name,
+        msg: message,
+        email: email,
+        tel: phone,
+      };
+
+      const loadingToast = Toastify({
+        text: "Enviando mensaje...",
+        duration: -1,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#3498db",
+      }).showToast();
+
+      try {
+        const response = await fetch(
+          "https://contact-app-murex.vercel.app/afw/send-mail",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+
+        loadingToast.hideToast();
+
+        if (response.ok) {
+          Toastify({
+            text: "Mensaje enviado correctamente.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#28a745",
+          }).showToast();
+
+          document.getElementById("contactForm").reset();
+        } else {
+          Toastify({
+            text: "Hubo un error al enviar el mensaje.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#dc3545",
+          }).showToast();
+        }
+      } catch (error) {
+        console.error("Error:", error);
+
+        loadingToast.hideToast();
+        Toastify({
+          text: "Hubo un error en la solicitud.",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#dc3545",
+        }).showToast();
+      }
+    });
+</script>

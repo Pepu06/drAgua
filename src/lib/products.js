@@ -7,9 +7,9 @@ let productos = [];
 try {
   await pb.admins.authWithPassword("pedro@gmail.com", "Pedro12345");
 
-  const records = await pb.collection("productos").getList(0, 250);
+  const records = await pb.collection("productos_es").getList(0, 250);
   productos = records.items.map((item) => {
-    const collectionId = "productos"; // ID de la colección
+    const collectionId = "productos_es"; // ID de la colección
     const recordId = item.id; // ID del registro actual
     const firstFilename = item.foto;
 

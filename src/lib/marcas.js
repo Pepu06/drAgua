@@ -7,11 +7,11 @@ let marcas = [];
 try {
   await pb.admins.authWithPassword("pedro@gmail.com", "Pedro12345");
 
-  const records = await pb.collection("segmentos").getList(0, 50);
+  const records = await pb.collection("segmentos_es").getList(0, 50);
   marcas = records.items
     .filter((item) => item.marca === true) // Filtrar solo los segmentos con .marca en true
     .map((item) => {
-      const collectionId = "segmentos"; // ID de la colección
+      const collectionId = "segmentos_es"; // ID de la colección
       const recordId = item.id; // ID del registro actual
       const firstFilename = item.foto;
 

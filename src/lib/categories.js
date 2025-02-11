@@ -7,9 +7,9 @@ let items = [];
 try {
   await pb.admins.authWithPassword("pedro@gmail.com", "Pedro12345");
 
-  const records = await pb.collection("categorias").getList(0, 100);
+  const records = await pb.collection("categorias_es").getList(0, 100);
   items = records.items.map((item) => {
-    const collectionId = "categorias"; // ID de la colección
+    const collectionId = "categorias_es"; // ID de la colección
     const recordId = item.id; // ID del registro actual
     const firstFilename = item.foto;
 
@@ -24,6 +24,7 @@ try {
       nombre: item.nombre.toUpperCase(), // Convertir el nombre a mayúsculas
     };
   });
+  console.log(items)
 } catch (error) {
   console.error("Error al autenticarse o al obtener el registro:", error);
 }
