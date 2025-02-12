@@ -3,6 +3,10 @@ import HamburgerMenu from "@components/icons/HamburgerMenu.astro";
 import Search from "@components/ui/Search";
 import { items } from "@lib/categories";
 import { marcas } from "@lib/marcas";
+
+let pathname = Astro.url.pathname;
+
+pathname = decodeURIComponent(pathname)
 ---
 
 <div class="relative">
@@ -72,7 +76,7 @@ import { marcas } from "@lib/marcas";
             items.map((item) => (
               <a
                 href={`/categorias/${item.nombre}`}
-                class="text-base text-wrap text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap"
+                class={`text-base text-wrap text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap ${pathname === `/categorias/${item.nombre}` ? 'bg-[#145EFF]' : ''}`}
               >
                 {item.nombre}
               </a>
@@ -107,7 +111,7 @@ import { marcas } from "@lib/marcas";
             marcas.map((marca) => (
               <a
                 href={`/marcas/${marca.nombre}`}
-                class="flex text-wrap justify-center items-center text-center text-sm text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center"
+                class={`flex text-wrap justify-center items-center text-sm text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center ${pathname === `/marcas/${marca.nombre}` ? 'bg-[#145EFF]' : ''}`}
               >
                 {marca.nombre}
               </a>
