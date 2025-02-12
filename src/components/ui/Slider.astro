@@ -76,7 +76,6 @@ const { items = [] }: { items?: Item[] } = Astro.props;
 </div>
 
 <script is:inline>
-  // Ejecutar inmediatamente
   (() => {
     class Carousel {
       constructor() {
@@ -89,80 +88,110 @@ const { items = [] }: { items?: Item[] } = Astro.props;
         this.currentIndex = 0;
         this.itemWidth = 0;
         this.totalItems = this.items.length;
-        this.itemsPerView = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1280 ? 3 : 5;
+        this.itemsPerView = this.calculateItemsPerView();
+        this.isTransitioning = false;
 
         this.initialize();
       }
 
+      calculateItemsPerView() {
+        if (window.innerWidth < 640) return 1;
+        if (window.innerWidth < 1024) return 2;
+        if (window.innerWidth < 1280) return 3;
+        return 5;
+      }
+
       initialize() {
-        // Clonar elementos para el efecto infinito
-        const itemsToClone = 5;
-        const firstClones = this.items
-          .slice(0, itemsToClone)
-          .map((item) => item.cloneNode(true));
-        const lastClones = this.items
-          .slice(-itemsToClone)
-          .map((item) => item.cloneNode(true));
+        // Duplicar el conjunto completo de items múltiples veces
+        const numSets = 5; // Número de veces que duplicamos el conjunto
+        const originalItems = this.items.map((item) => item.cloneNode(true));
 
-        // Agregar clones al inicio y final
-        firstClones.forEach((clone) => this.inner.appendChild(clone));
-        lastClones.forEach((clone) =>
-          this.inner.insertBefore(clone, this.inner.firstChild)
-        );
+        // Agregar los conjuntos duplicados
+        for (let i = 0; i < numSets; i++) {
+          originalItems.forEach((item) => {
+            const clone = item.cloneNode(true);
+            this.inner.appendChild(clone);
+          });
+        }
 
-        // Calcular ancho del item y posición inicial
         this.updateDimensions();
-        this.setPosition();
+        this.setInitialPosition();
 
         // Event listeners
         this.prevBtn.addEventListener("click", () => this.move("prev"));
         this.nextBtn.addEventListener("click", () => this.move("next"));
-        window.addEventListener("resize", () => this.updateDimensions());
+        window.addEventListener("resize", () => {
+          this.itemsPerView = this.calculateItemsPerView();
+          this.updateDimensions();
+          this.setInitialPosition();
+        });
 
-        // Configurar transición
-        this.inner.style.transition = "transform 0.3s ease-in-out";
+        // Auto-reposicionamiento cuando llegamos muy lejos en cualquier dirección
+        this.inner.addEventListener("transitionend", () => {
+          this.isTransitioning = false;
+          this.checkAndResetPosition();
+        });
       }
 
       updateDimensions() {
         const item = this.items[0];
-        this.itemWidth =
-          item.offsetWidth + parseInt(window.getComputedStyle(item).marginRight);
-        this.setPosition();
+        const style = window.getComputedStyle(item);
+        const marginRight = parseInt(style.marginRight) || 0;
+        const marginLeft = parseInt(style.marginLeft) || 0;
+
+        this.itemWidth = item.offsetWidth + marginRight + marginLeft;
       }
 
-      setPosition(index = this.currentIndex) {
-        const position = -(index + 5) * this.itemWidth;
+      setInitialPosition() {
+        // Comenzar desde el primer conjunto de items (no desde el principio del todo)
+        const position = -this.totalItems * this.itemWidth;
+        this.inner.style.transition = "none";
         this.inner.style.transform = `translateX(${position}px)`;
+        this.currentIndex = this.totalItems;
+
+        // Forzar reflow
+        this.inner.offsetHeight;
+        this.inner.style.transition = "transform 0.3s ease-in-out";
       }
 
       move(direction) {
-        const isNext = direction === "next";
-        this.currentIndex += isNext ? 1 : -1;
+        if (this.isTransitioning) return;
+        this.isTransitioning = true;
 
-        this.inner.style.transition = "transform 0.3s ease-in-out";
-        this.setPosition();
+        const moveAmount = direction === "next" ? 3 : -3;
+        this.currentIndex += moveAmount;
 
-        // Check for infinite scroll reset
-        if (isNext && this.currentIndex >= this.totalItems) {
-          this.resetPosition(0);
-        } else if (!isNext && this.currentIndex < 0) {
-          this.resetPosition(this.totalItems - 1);
-        }
+        const position = -this.currentIndex * this.itemWidth;
+        this.inner.style.transform = `translateX(${position}px)`;
       }
 
-      resetPosition(index) {
-        setTimeout(() => {
+      checkAndResetPosition() {
+        const totalSets = 5;
+        const itemsInView = this.totalItems * totalSets;
+
+        // Si nos movimos muy adelante, volver al segundo conjunto
+        if (this.currentIndex >= this.totalItems * 3) {
           this.inner.style.transition = "none";
-          this.currentIndex = index;
-          this.setPosition();
-          setTimeout(() => {
-            this.inner.style.transition = "transform 0.3s ease-in-out";
-          }, 50);
-        }, 300);
+          this.currentIndex = this.totalItems;
+          const position = -this.currentIndex * this.itemWidth;
+          this.inner.style.transform = `translateX(${position}px)`;
+        }
+
+        // Si nos movimos muy atrás, ir al penúltimo conjunto
+        if (this.currentIndex <= 0) {
+          this.inner.style.transition = "none";
+          this.currentIndex = this.totalItems * 2;
+          const position = -this.currentIndex * this.itemWidth;
+          this.inner.style.transform = `translateX(${position}px)`;
+        }
+
+        // Forzar reflow y restaurar transición
+        this.inner.offsetHeight;
+        this.inner.style.transition = "transform 0.3s ease-in-out";
       }
     }
-    
-    // Inicializar inmediatamente si los elementos existen
+
+    // Inicializar el carrusel
     if (document.getElementById("carousel")) {
       new Carousel();
     }

@@ -42,13 +42,13 @@ import { marcas } from "@lib/marcas";
 
     <nav class="flex flex-col items-center gap-8 mt-8 text-white">
       <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left text-[#F2F6FF] text-xl font-medium"
         href="/">Inicio</a
       >
       <div class="flex flex-col items-center w-full">
         <button
           id="categorias-btn"
-          class="flex flex-row justify-center items-center text-center hover:cursor-pointer hover:scale-105 transition-all duration-200 text-[#F2F6FF] text-xl font-medium mb-2"
+          class="flex flex-row justify-center items-center text-center hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left text-[#F2F6FF] text-xl font-medium mb-2"
           >Categorias
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ import { marcas } from "@lib/marcas";
             items.map((item) => (
               <a
                 href={`/categorias/${item.nombre}`}
-                class="text-sm text-wrap text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap"
+                class="text-base text-wrap text-[#F2F6FF] hover:text-[#145EFF] transition-colors py-2 px-3 text-center whitespace-nowrap"
               >
                 {item.nombre}
               </a>
@@ -83,7 +83,7 @@ import { marcas } from "@lib/marcas";
       <div class="flex flex-col items-center w-full">
         <button
           id="marcas-btn"
-          class="flex flex-row justify-center items-center text-center hover:cursor-pointer hover:scale-105 transition-all duration-200 text-[#F2F6FF] text-xl font-medium mb-2"
+          class="flex flex-row justify-center items-center text-center hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left text-[#F2F6FF] text-xl font-medium mb-2"
           >Marcas
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@ import { marcas } from "@lib/marcas";
         </div>
       </div>
       <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200 text-[#F2F6FF] text-xl font-medium"
+        class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left text-[#F2F6FF] text-xl font-medium"
         href="/contacto">Contacto</a
       >
     </nav>

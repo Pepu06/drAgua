@@ -4,6 +4,10 @@ import Search from "@components/ui/Search";
 import Menu from "@components/ui/Menu.astro";
 import { items } from "@lib/categories";
 import { marcas } from "@lib/marcas";
+
+let pathname = Astro.url.pathname;
+
+pathname = decodeURIComponent(pathname)
 ---
 
 <header
@@ -31,7 +35,7 @@ align-items: center;
 gap: 50px;"
     >
       <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left"
         style="display: flex;
 justify-content: center;
 align-items: center;
@@ -44,7 +48,7 @@ line-height: normal;"
       >
       <div class="relative group">
         <a
-          class="hover:cursor-pointer hover:scale-105 transition-all duration-200 flex items-center gap-2"
+          class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left flex items-center gap-2"
           style="display: flex;
 justify-content: center;
 align-items: center;
@@ -71,14 +75,14 @@ line-height: normal;"
           </svg>
         </a>
         <div
-          class="absolute grid grid-cols-4 -left-40 mt-2 w-[600px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+          class="absolute grid grid-cols-4 -left-40 mt-2 w-[700px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
           style="border: 1px solid var(--Border-Color, #13254F);"
         >
           {
             items.map((item) => (
               <a
                 href={`/categorias/${item.nombre}`}
-                class="flex justify-center items-center px-2 py-1 text-sm text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center"
+                class={`flex justify-center items-center px-6 py-4 text-base text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center ${pathname === `/categorias/${item.nombre}` ? 'bg-[#145EFF]' : ''}`}
               >
                 {item.nombre}
               </a>
@@ -88,7 +92,7 @@ line-height: normal;"
       </div>
       <div class="relative group">
         <a
-          class="hover:cursor-pointer hover:scale-105 transition-all duration-200 flex items-center gap-2"
+          class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left flex items-center gap-2"
           style="display: flex;
 justify-content: center;
 align-items: center;
@@ -115,14 +119,14 @@ line-height: normal;"
           </svg>
         </a>
         <div
-          class="absolute grid grid-cols-4 -left-40 mt-2 w-[500px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+          class="absolute grid grid-cols-4 -left-40 mt-2 w-[600px] bg-bgDrAgua rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
           style="border: 1px solid var(--Border-Color, #13254F);"
         >
           {
             marcas.map((marca) => (
               <a
                 href={`/marcas/${marca.nombre}`}
-                class="flex justify-center items-center px-4 py-3 text-sm text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center"
+                class={`flex justify-center items-center px-6 py-4 text-base text-[#F2F6FF] hover:bg-[#145EFF] transition-colors text-center ${pathname === `/marcas/${marca.nombre}` ? 'bg-[#145EFF]' : ''}`}
               >
                 {marca.nombre}
               </a>
@@ -131,7 +135,7 @@ line-height: normal;"
         </div>
       </div>
       <a
-        class="hover:cursor-pointer hover:scale-125 transition-all duration-200"
+        class="hover:cursor-pointer relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[3px] after:bg-[#305197] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left"
         style="display: flex;
 justify-content: center;
 align-items: center;

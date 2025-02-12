@@ -4,8 +4,12 @@
   <img
     src="/bgHero.png"
     alt="Background"
-    class="absolute inset-0 w-full h-full object-cover bg-fixed bg-center -z-10"
+    class="inset-0 w-full h-full object-cover bg-fixed bg-center -z-10 fixed"
     loading="eager"
+    style="background-attachment: fixed;
+    @supports (-webkit-touch-callout: inherit) {
+      background-attachment: scroll;
+    }"
   />
   <div
     class="flex flex-col items-center justify-center gap-[50px] lg:w-[900px] sm:w-[450px] w-full"
@@ -109,3 +113,4 @@ border-radius: 5px;
     </div>
   </div>
 </section>
+
