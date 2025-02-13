@@ -120,7 +120,7 @@ const SearchButton = () => {
             </div>
 
             {isExpanded && searchResults.length > 0 && (
-                <div className="absolute right-[70px] top-14 w-[250px] bg-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto z-50">
+                <div className="absolute right-[70px] md:top-14 bottom-[70px] md:bottom-auto w-[250px] bg-white rounded-md shadow-lg mt-2 max-h-64 overflow-y-auto z-50">
                     {searchResults.map((result) => (
                         <div
                             key={result.id}

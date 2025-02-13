@@ -158,7 +158,11 @@ const { items = [] }: { items?: Item[] } = Astro.props;
         if (this.isTransitioning) return;
         this.isTransitioning = true;
 
-        const moveAmount = direction === "next" ? 3 : -3;
+        // Determine move amount based on screen size
+        const moveAmount = window.innerWidth < 640 
+          ? (direction === "next" ? 1 : -1)  // Move 1 item on mobile
+          : (direction === "next" ? 3 : -3); // Move 3 items on larger screens
+          
         this.currentIndex += moveAmount;
 
         const position = -this.currentIndex * this.itemWidth;
